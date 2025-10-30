@@ -1,7 +1,7 @@
 # 🧠 Smart Concepts API
 
 An AI-powered API that generates **intellectual quotes, principles, effects, and phenomena** across various scientific and philosophical fields.  
-Built with **FastAPI** and powered by **Groq (via LiteLLM)**.
+Built with **FastAPI** and powered by **Groq**.
 
 ---
 
@@ -19,8 +19,8 @@ Built with **FastAPI** and powered by **Groq (via LiteLLM)**.
 ## ⚙️ Setup
 
 ```bash
-git clone https://github.com/yourusername/smart-concepts-api.git
-cd smart-concepts-api
+git clone https://github.com/ghasty1/Inquote.git
+cd Inquote
 pip install -r requirements.txt
 uvicorn main:app --reload
 ```
