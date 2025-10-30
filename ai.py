@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 from enum import Enum
 
 def generate_quote(field: str, type: str):
-    client = Groq()
+    client = Groq(api_key="GROQ_API_KEY")
 
     class SupportedField(str, Enum):
         psychology = "psychology"
@@ -78,4 +78,5 @@ def generate_quote(field: str, type: str):
 
     response_generation = QuoteResponse.model_validate(json.loads(response.choices[0].message.content))
     parsed_response = response_generation.model_dump()
+
     return parsed_response
