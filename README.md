@@ -1,4 +1,4 @@
-# 🧠 Smart Concepts API
+# "Inquote" API
 
 An AI-powered API that generates **intellectual quotes, principles, effects, and phenomena** across various scientific and philosophical fields.  
 Built with **FastAPI** and powered by **Groq**.
@@ -16,7 +16,7 @@ Built with **FastAPI** and powered by **Groq**.
 
 ---
 
-## ⚙️ Setup
+## ⚙️Local Setup
 
 ```bash
 git clone https://github.com/ghasty1/Inquote.git
@@ -28,7 +28,8 @@ uvicorn main:app --reload
 Then visit [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) for interactive API documentation.
 
 ---
-
+## Live API
+Visit [Inquote Online](https://inquote.onrender.com/)
 ## 🧾 Endpoints
 
 ### 🔹 `GET /random`
