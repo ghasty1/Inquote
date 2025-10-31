@@ -9,7 +9,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def generate_quote(field: str, type: str):
+    client = Groq(
     api_key=os.environ.get("GROQ_API_KEY"),
+)
 
     class SupportedField(str, Enum):
         psychology = "psychology"
@@ -85,4 +87,5 @@ def generate_quote(field: str, type: str):
     parsed_response = response_generation.model_dump()
 
     return parsed_response
+
 
