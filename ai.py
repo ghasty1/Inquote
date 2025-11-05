@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def generate_quote(field: str, type: str, max_char=None) -> dict:
+def generate_quote(field: str, type: str, char=None) -> dict:
     client = Groq(
         api_key=os.environ.get("GROQ_API_KEY"),
     )
@@ -70,7 +70,7 @@ def generate_quote(field: str, type: str, max_char=None) -> dict:
                 "content": system_prompt,
             },
             {"role": "user",
-             "content": f"Provide a quote in {field} area of type {type} with a maximum of {max_char} characters."
+             "content": f"Provide a quote in {field} area of type {type} with a exactly {char} characters."
              },
         ],
         response_format={
@@ -87,5 +87,6 @@ def generate_quote(field: str, type: str, max_char=None) -> dict:
     parsed_response = response_generation.model_dump()
 
     return parsed_response
+
 
 
