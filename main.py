@@ -74,11 +74,12 @@ def health_check():
 @app.get("/short-quote")
 def short_quote(char: int = 53):
     """Get a short inspirational quote."""
-    message = generate_quote("inspirational", random_type, char=max_char)
+    message = generate_quote("inspirational", random_type, char=char)
     return JSONResponse(content=message)
 
 
 
 if __name__ == "__main__":
         uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+
 
