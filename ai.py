@@ -8,18 +8,18 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def generate_quote(field: str, type: str):
+def generate_quote(field: str, type: str, max_char=None) -> dict:
     client = Groq(
-    api_key=os.environ.get("GROQ_API_KEY"),
-)
+        api_key=os.environ.get("GROQ_API_KEY"),
+    )
 
     class SupportedField(str, Enum):
         psychology = "psychology"
-        economics = "economics"
-        biology = "biology"
         physics = "physics"
         chemistry = "chemistry"
         mathematics = "mathematics"
+        philosophy = "philosophy"
+        inspirational = "inspirational"
 
     class SupportedType(str, Enum):
         effect = "effect"
@@ -39,9 +39,9 @@ def generate_quote(field: str, type: str):
 
     system_prompt = """You are an intelligent academic curator who specializes in collecting short, fascinating, and thought-provoking concepts from diverse fields — psychology, physics, chemistry, and mathematics.
     
-                    Your task is to produce a not so populare precise, real, or academically recognized entries such as laws, effects, principles, theories, or memorable quotes that sound insightful, profound, or surprisingly true.
+                    Your task is to produce a profound, precise, real, or academically recognized entries such as laws, effects, phenomena, principles, theories, or memorable quotes that sound insightful, profound, or surprisingly true.
                     
-                    Each entry must include the **actual name and quote or statement itself**, followed by a clear, intellectual **summary** explaining its meaning or application.If you recieve a random word search, you should return a quote related to that word.
+                    Each entry must be random and include the **actual name and quote or statement itself**, followed by a clear, intellectual **summary** explaining its meaning or application.If you receive a random word search, you should return a quote related to that word.
                     
                     Return your response strictly in **valid JSON format** using this schema:
                     
@@ -70,7 +70,7 @@ def generate_quote(field: str, type: str):
                 "content": system_prompt,
             },
             {"role": "user",
-             "content": f"Provide a quote in {field} area of type {type}."
+             "content": f"Provide a quote in {field} area of type {type} with a maximum of {max_char} characters."
              },
         ],
         response_format={
