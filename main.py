@@ -4,8 +4,10 @@ from random import choice
 from ai import generate_quote
 from fastapi.responses import JSONResponse, RedirectResponse
 
-random_type = choice(["effect", "principle", "theory", "phenomenon", "quote"])
-random_field = choice(["psychology", "physics", "chemistry", "mathematics", "philosophy", "inspirational"])
+fields = ["psychology", "physics", "chemistry", "mathematics", "philosophy", "inspirational"]
+types = ["effect", "principle", "theory", "phenomenon", "quote", "syndrome"]
+random_type = choice(types)
+random_field = choice(fields)
 app = FastAPI( title="Smart Concepts API",
     description="""
     An AI-powered API that generates fascinating quotes, effects, and principles from various fields of study.
@@ -15,7 +17,7 @@ app = FastAPI( title="Smart Concepts API",
     - Structured JSON responses  
     - Auto-generated Swagger UI and ReDoc documentation  
     """,
-    version="1.0.1")
+    version="1.0.2")
 
 
 @app.get("/")
@@ -32,33 +34,40 @@ def random():
 @app.get("/random/{type}/{field}")
 def random_type_field(type: str, field: str):
     """Get a random quote by type and field."""
-    if field not in ["psychology", "physics", "chemistry", "mathematics", "philosophy"]:
+    if field not in fields:
         return JSONResponse(content={"error": "Field Not Supported"}, status_code=400)
-    elif type not in ["effect", "principle", "theory", "phenomenon", "quote"]:
+    elif type not in types:
         return JSONResponse(content={"error": "Type Not Supported"}, status_code=400)
     else:
         message = generate_quote(field, type)
         return JSONResponse(content=message)
 
 @app.get("/quote/{field}")
-def get_quote(field: str):
+def get_quote_field(field: str):
     """Get a random quote by field."""
-    if field not in ["psychology", "physics", "chemistry", "mathematics", "philosophy", "inspirational"]:
+    if field not in fields:
         return JSONResponse(content={"error": "Field Not Supported"}, status_code=400)
     else:
         message = generate_quote(field, random_type)
         return JSONResponse(content=message)
 
+app.get(f"/quote/{type}")
+def get_quote_type(type: str):
+    """Get a random quote by type."""
+    if type not in types:
+        return JSONResponse(content={"error": "Type Not Supported"}, status_code=400)
+    else:
+        message = generate_quote(random_field, type)
+        return JSONResponse(content=message)
+
 @app.get("/fields")
 def get_fields():
     """Get supported fields."""
-    fields = ["psychology", "physics", "chemistry", "mathematics", "philosophy", "inspirational"]
     return JSONResponse(content={"fields": fields})
 
 @app.get("/types")
 def get_types():
     """Get supported types."""
-    types = ["effect", "principle", "theory", "phenomenon", "quote"]
     return JSONResponse(content={"types": types})
 
 @app.get("/search/{keyword}")

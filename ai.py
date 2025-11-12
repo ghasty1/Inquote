@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def generate_quote(field: str, type: str, char=None) -> dict:
+def generate_quote(field: str, type: str, char: int= None) -> dict:
     client = Groq(
         api_key=os.environ.get("GROQ_API_KEY"),
     )
@@ -21,12 +21,14 @@ def generate_quote(field: str, type: str, char=None) -> dict:
         philosophy = "philosophy"
         inspirational = "inspirational"
 
+
     class SupportedType(str, Enum):
         effect = "effect"
         principle = "principle"
         theory = "theory"
         phenomenon = "phenomenon"
         quote = "quote"
+        syndrome = "syndrome"
 
     class QuoteResponse(BaseModel):
         name: str = Field(..., description="The name of the concept, law, or theory.")
@@ -38,13 +40,13 @@ def generate_quote(field: str, type: str, char=None) -> dict:
         time: str | None = Field(None, description="Year or era when it was introduced.")
 
     system_prompt = """You are an intelligent academic curator who specializes in collecting short, fascinating, and thought-provoking concepts from diverse fields — psychology, physics, chemistry, and mathematics.
-    
+
                     Your task is to produce a profound, precise, real, or academically recognized entries such as laws, effects, phenomena, principles, theories, or memorable quotes that sound insightful, profound, or surprisingly true.
-                    
+
                     Each entry must be random and include the **actual name and quote or statement itself**, followed by a clear, intellectual **summary** explaining its meaning or application.If you receive a random word search, you should return a quote related to that word.
-                    
+
                     Return your response strictly in **valid JSON format** using this schema:
-                    
+
                     {
                       "name": "<the name of the concept, law, theory, or effect>",
                       "field": "<psychology | physics | chemistry | mathematics| Philosophy>",
@@ -54,7 +56,7 @@ def generate_quote(field: str, type: str, char=None) -> dict:
                       "time": "<the year or period when the concept was first introduced or the quote was made>",
                       "summary": "<1–3 sentences explaining what the statement means, why it’s interesting, or how it applies to human behavior or real life.>"
                     }
-                    
+
                     Guidelines:
                     - The quote must be **authentic** or a commonly accepted phrasing of the concept (e.g. “The Butterfly Effect”, “Occam’s Razor”, “The Dunning–Kruger Effect”).
                     - The summary should read like an intelligent, well-crafted encyclopedia note — concise but insightful.
@@ -70,7 +72,7 @@ def generate_quote(field: str, type: str, char=None) -> dict:
                 "content": system_prompt,
             },
             {"role": "user",
-             "content": f"Provide a quote in {field} area of type {type} with a exactly {char} characters."
+             "content": f"Provide a quote in {field} area of type {type} with {char} characters. If {char} is None, provide a random length."
              },
         ],
         response_format={
