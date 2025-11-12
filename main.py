@@ -42,7 +42,7 @@ def random_type_field(type: str, field: str):
         message = generate_quote(field, type)
         return JSONResponse(content=message)
 
-@app.get("/quote/{field}")
+@app.get("/quote/field/{field}")
 def get_quote_field(field: str):
     """Get a random quote by field."""
     if field not in fields:
@@ -52,7 +52,7 @@ def get_quote_field(field: str):
         return JSONResponse(content=message)
 
 
-@app.get("/quote/{type}")
+@app.get("/quote/type/{type}")
 def get_quote_type(type: str):
     """Get a random quote by type."""
     if type not in types:
