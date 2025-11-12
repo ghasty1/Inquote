@@ -51,7 +51,7 @@ def generate_quote(field: str, type: str, char: int= None) -> dict:
                       "name": "<the name of the concept, law, theory, or effect>",
                       "field": "<psychology | physics | chemistry | mathematics| Philosophy>",
                       "type": "<effect | principle | theory | phenomenon | quote>",
-                      "quote": "<the actual phrase, law, or saying itself>",
+                      "quote": "<the actual phrase, syndrome, effect, law, or saying itself>",
                       "author": "<the original author or source of the quote or concept, if known; otherwise use 'Unknown'>",
                       "time": "<the year or period when the concept was first introduced or the quote was made>",
                       "summary": "<1–3 sentences explaining what the statement means, why it’s interesting, or how it applies to human behavior or real life.>"

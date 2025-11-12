@@ -99,6 +99,28 @@ GET /quote/physics
 **Errors:**
 - `400 Bad Request` → Field Not Supported
 
+### 🔹 `GET /quote/{type}}`
+Get a random quote filtered by **type** only.
+
+**Example Request:**
+```bash
+GET /quote/syndrome
+```
+
+**Example Response:**
+```json
+{
+  "name": "Shiny Object Syndrome",
+  "field": "psychology",
+  "type": "syndrome",
+  "quote": "The tendency to chase new ideas or trends at the expense of focus and productivity.",
+  "summary": "Highlights how distraction by novelty can hinder long-term success."
+}
+```
+
+**Errors:**
+- `400 Bad Request` → Field Not Supported
+
 ---
 
 ### 🔹 `GET /fields`
@@ -119,7 +141,7 @@ Retrieve a list of supported concept types.
 **Example Response:**
 ```json
 {
-  "types": ["effect", "principle", "theory", "phenomenon", "quote"]
+  "types": ["effect", "principle", "theory", "phenomenon", "quote", "syndrome"]
 }
 ```
 
@@ -166,6 +188,8 @@ GET /search/memory
 | theory | Conceptual explanation based on reasoning |
 | phenomenon | Naturally occurring event or pattern |
 | quote | Memorable intellectual statement |
+| syndrome | A set of correlated symptoms or behaviors |
+
 
 ---
 
