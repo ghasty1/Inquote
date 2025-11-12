@@ -51,7 +51,8 @@ def get_quote_field(field: str):
         message = generate_quote(field, random_type)
         return JSONResponse(content=message)
 
-app.get(f"/quote/{type}")
+
+@app.get("/quote/{type}")
 def get_quote_type(type: str):
     """Get a random quote by type."""
     if type not in types:
